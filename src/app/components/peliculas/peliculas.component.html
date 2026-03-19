@@ -1,0 +1,16 @@
+<h2>Películas</h2>
+
+<form (ngSubmit)="agregarPelicula()">
+  <input [(ngModel)]="nuevaPelicula.titulo" name="titulo" placeholder="Título" required>
+  <input [(ngModel)]="nuevaPelicula.descripcion" name="descripcion" placeholder="Descripción" required>
+  <input [(ngModel)]="nuevaPelicula.anio" name="anio" type="number" placeholder="Año" required>
+  <input [(ngModel)]="nuevaPelicula.duracion" name="duracion" type="number" placeholder="Duración (min)" required>
+  <button type="submit">Agregar Película</button>
+</form>
+
+<ul>
+  <li *ngFor="let p of peliculas">
+    {{p.titulo}} ({{p.anio}}) - {{p.duracion}} min
+    <button (click)="eliminarPelicula(p.id)">Eliminar</button>
+  </li>
+</ul>
