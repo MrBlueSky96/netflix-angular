@@ -1,0 +1,8 @@
+.card-img-small {
+  max-height: 350px;
+  width: 100%;       /* ocupa todo el ancho de la card */
+  object-fit: contain; /*mantiene la proporción*/
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px; /* opcional: bordes redondeados */
+}

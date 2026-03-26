@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { EditVideoDialogComponent } from './edit-video-dialog.component';
+
+describe('EditVideoDialogComponent', () => {
+  let component: EditVideoDialogComponent;
+  let fixture: ComponentFixture<EditVideoDialogComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [EditVideoDialogComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(EditVideoDialogComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
