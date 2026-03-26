@@ -1,16 +1,40 @@
-<h2>Series</h2>
+<div class="container mt-4">
 
-<form (ngSubmit)="agregarSerie()">
-  <input [(ngModel)]="nuevaSerie.titulo" name="titulo" placeholder="Título" required>
-  <input [(ngModel)]="nuevaSerie.descripcion" name="descripcion" placeholder="Descripción" required>
-  <input [(ngModel)]="nuevaSerie.anio" name="anio" type="number" placeholder="Año" required>
-  <input [(ngModel)]="nuevaSerie.numeroTemporadas" name="numeroTemporadas" type="number" placeholder="Número de temporadas" required>
-  <button type="submit">Agregar Serie</button>
-</form>
+  <h2 class="mb-4">Series</h2>
 
-<ul>
-  <li *ngFor="let s of series">
-    {{s.titulo}} ({{s.anio}}) - {{s.numeroTemporadas}} temporadas
-    <button (click)="eliminarSerie(s.id)">Eliminar</button>
-  </li>
-</ul>
+  <form (ngSubmit)="agregarSerie()" class="card p-3 mb-4 shadow-sm">
+
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input [(ngModel)]="nuevaSerie.titulo" name="titulo" class="form-control" placeholder="Título" required>
+      </div>
+
+      <div class="col-md-3">
+        <input [(ngModel)]="nuevaSerie.descripcion" name="descripcion" class="form-control" placeholder="Descripción" required>
+      </div>
+
+      <div class="col-md-2">
+        <input [(ngModel)]="nuevaSerie.anio" name="anio" type="number" class="form-control" placeholder="Año" required>
+      </div>
+
+      <div class="col-md-2">
+        <input [(ngModel)]="nuevaSerie.numeroTemporadas" name="numeroTemporadas" type="number" class="form-control" placeholder="Temporadas" required>
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Añadir</button>
+      </div>
+    </div>
+
+  </form>
+
+  <ul class="list-group">
+    <li *ngFor="let s of series" class="list-group-item d-flex justify-content-between align-items-center">
+      <span>
+        <strong>{{s.titulo}}</strong> ({{s.anio}}) - {{s.numeroTemporadas}} temporadas
+      </span>
+      <button class="btn btn-danger btn-sm" (click)="eliminarSerie(s.id)">Eliminar</button>
+    </li>
+  </ul>
+
+</div>
