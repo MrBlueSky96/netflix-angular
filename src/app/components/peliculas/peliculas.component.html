@@ -27,6 +27,13 @@
         <!-- <label for="imagen">URL de la portada</label> -->
         <input [(ngModel)]="nuevaPelicula.imagenUrl" class="form-control" placeholder="https://...">
       </div>
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]" 
+        (click)="nuevaPelicula.puntuacion = star"
+        [class.active]="star <= (nuevaPelicula?.puntuacion || 0)">
+        ★
+        </span>
+      </div>
       <div class="col-md-2">
         <button class="btn btn-primary w-100" (click)="agregarPelicula()">
           ➕ Agregar
@@ -37,13 +44,20 @@
 
   <!-- LISTA DE PELÍCULAS -->
   <div class="row g-3">
-    <div class="col-md-4" *ngFor="let p of peliculasFiltradas">
+    <div class="col-md-3" *ngFor="let p of peliculasFiltradas">
       <div class="card h-100 shadow-sm">
         <img *ngIf="p.imagenUrl" [src]="p.imagenUrl" class="card-img-top card-img-small" alt="{{p.titulo}}">
         <div class="card-body">
           <h5 class="card-title">{{ p.titulo }}</h5>
-          <p class="card-text">{{ p.descripcion }}</p>
+          <p class="card-text descripcion-corta">{{ p.descripcion }}</p>
           <p class="card-text"><small class="text-muted">{{ p.anio }} - {{ p.duracion }} min</small></p>
+          <div class="mb-2">
+            <span *ngFor="let star of [1,2,3,4,5]">
+            <span [style.color]="star <= (p?.puntuacion || 0) ? 'gold' : 'lightgray'">
+            ★
+            </span>
+            </span>
+          </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
           <button class="btn btn-warning btn-sm" (click)="editarPelicula(p)">

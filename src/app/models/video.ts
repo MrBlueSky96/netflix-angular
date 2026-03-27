@@ -4,5 +4,6 @@ export interface Video {
   descripcion: string;
   anio: number;
   imagenUrl?: string;
+  puntuacion?: number;
   tipo_video?: 'PELICULA' | 'SERIE';
 }

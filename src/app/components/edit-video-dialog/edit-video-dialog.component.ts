@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-edit-video-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, ],
   templateUrl: './edit-video-dialog.component.html'
 })
 export class EditVideoDialogComponent {
@@ -19,7 +19,8 @@ export class EditVideoDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<EditVideoDialogComponent>
   ) {
     this.tipo = data.tipo;
 
@@ -29,6 +30,8 @@ export class EditVideoDialogComponent {
       titulo: [data.video.titulo, Validators.required],
       descripcion: [data.video.descripcion, Validators.required],
       anio: [data.video.anio, [Validators.required, Validators.min(1900)]],
+      imagenUrl: [data.video.imagenUrl],
+      puntuacion: [data.video.puntuacion || 1, [Validators.min(1), Validators.max(5)]],
       duracion: [data.video.duracion],
       numeroTemporadas: [data.video.numeroTemporadas]
     });
@@ -45,6 +48,22 @@ export class EditVideoDialogComponent {
     // Actualizamos validaciones
     this.form.get('duracion')?.updateValueAndValidity();
     this.form.get('numeroTemporadas')?.updateValueAndValidity();
+  }
+
+  get puntuacion(): number {
+    return this.form.get('puntuacion')?.value ?? 0;
+  }
+
+  setPuntuacion(valor: number) {
+    this.form.patchValue({ puntuacion: valor });
+    alert(valor);
+    
+  }
+
+  guardar() {
+    if (this.form.invalid) return;
+    this.dialogRef.close(this.form.value);
+    return this.form.value;
   }
 
 }

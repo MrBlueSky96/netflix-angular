@@ -21,7 +21,7 @@ export class PeliculasComponent {
   busquedaControl = new FormControl('');
   peliculaSeleccionada: Pelicula | null = null;
   peliculas: Pelicula[] = [];
-  nuevaPelicula: Pelicula = { titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '' };
+  nuevaPelicula: Pelicula = { titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '', puntuacion: 1 };
 
   constructor(private peliculaService: PeliculaService, private dialog: MatDialog, private cd: ChangeDetectorRef) {
     this.cargarPeliculas();
@@ -42,7 +42,7 @@ export class PeliculasComponent {
 
   agregarPelicula() {
     this.peliculaService.createPelicula(this.nuevaPelicula).subscribe(() => {
-      this.nuevaPelicula = { titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '' };
+      this.nuevaPelicula = { titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '', puntuacion: 1 };
       this.cargarPeliculas();
     });
   }
@@ -59,7 +59,7 @@ export class PeliculasComponent {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    if (result) {
+    if (result) {      
       this.peliculaService.updatePelicula(result.id, result)
         .subscribe(() => this.cargarPeliculas());
     }

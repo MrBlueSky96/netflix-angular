@@ -1,0 +1,18 @@
+.stars {
+  display: flex;
+  gap: 5px;
+}
+
+.stars span {
+  font-size: 24px;
+  cursor: pointer;
+  color: lightgray;
+  background: red;
+  pointer-events: auto;
+  z-index: 10;
+  position: relative;
+}
+
+.stars span.active {
+  color: gold;
+}

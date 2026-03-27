@@ -1,8 +1,24 @@
 .card-img-small {
-  max-height: 350px;
+  max-height: 300px;
   width: 100%;       /* ocupa todo el ancho de la card */
   object-fit: contain; /*mantiene la proporción*/
   display: block;
   margin: 0 auto;
-  border-radius: 4px; /* opcional: bordes redondeados */
+}
+
+.descripcion-corta {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* número de líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stars span {
+  font-size: 24px;
+  cursor: pointer;
+  color: lightgray;
+}
+
+.stars span.active {
+  color: gold;
 }
