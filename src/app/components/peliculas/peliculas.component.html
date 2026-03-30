@@ -1,7 +1,7 @@
-<div class="container mt-4">
+<div class="container-fluid px-4 body">
 
   <!-- BUSCADOR -->
-  <div class="mb-3">
+  <div class="buscador mb-3">
     <input [formControl]="busquedaControl"
            class="form-control" 
            placeholder="Buscar película...">
@@ -9,7 +9,7 @@
 
   <!-- FORMULARIO CREAR -->
   <div class="card mb-4 p-3 shadow-sm">
-    <h5 class="card-title mb-3">Agregar nueva película</h5>
+    <h5 class="card-title mb-3 text-light">Agregar nueva película</h5>
     <div class="row g-2">
       <div class="col-md-3">
         <input [(ngModel)]="nuevaPelicula.titulo" class="form-control" placeholder="Título">
@@ -30,7 +30,7 @@
       <div class="stars">
         <span *ngFor="let star of [1,2,3,4,5]" 
         (click)="nuevaPelicula.puntuacion = star"
-        [class.active]="star <= (nuevaPelicula?.puntuacion || 0)">
+        [class.active]="star <= (nuevaPelicula.puntuacion || 0)">
         ★
         </span>
       </div>
@@ -41,34 +41,37 @@
       </div>
     </div>
   </div>
+  
 
-  <!-- LISTA DE PELÍCULAS -->
-  <div class="row g-3">
-    <div class="col-md-3" *ngFor="let p of peliculasFiltradas">
-      <div class="card h-100 shadow-sm">
-        <img *ngIf="p.imagenUrl" [src]="p.imagenUrl" class="card-img-top card-img-small" alt="{{p.titulo}}">
-        <div class="card-body">
-          <h5 class="card-title">{{ p.titulo }}</h5>
-          <p class="card-text descripcion-corta">{{ p.descripcion }}</p>
-          <p class="card-text"><small class="text-muted">{{ p.anio }} - {{ p.duracion }} min</small></p>
-          <div class="mb-2">
-            <span *ngFor="let star of [1,2,3,4,5]">
-            <span [style.color]="star <= (p?.puntuacion || 0) ? 'gold' : 'lightgray'">
-            ★
-            </span>
-            </span>
-          </div>
-        </div>
-        <div class="card-footer d-flex justify-content-between">
-          <button class="btn btn-warning btn-sm" (click)="editarPelicula(p)">
-            ✏️ Editar
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="eliminarPelicula(p.id)">
-            🗑 Eliminar
-          </button>
-        </div>
-      </div>
+  <div class="container-movies">
+  <div class="movie-card" *ngFor="let p of peliculasFiltradas">
+
+  <div class="image-container">
+    <img [src]="p.imagenUrl" alt="{{p.titulo}}">
+  </div>
+
+  <div class="movie-body">
+    <h5>{{ p.titulo }}</h5>
+    <p class="descripcion">{{ p.descripcion }}</p>
+
+    <p class="info">
+      {{ p.anio }} • {{ p.duracion }} min
+    </p>
+
+    <div class="stars">
+      <span *ngFor="let star of [1,2,3,4,5]"
+        [class.active]="star <= (p?.puntuacion || 0)">★
+      </span>
     </div>
+  </div>
+
+  <div class="movie-footer">
+    <button class="btn-edit">✏️ Editar</button>
+    <button class="btn-delete">🗑 Eliminar</button>
+  </div>
+
+  </div>
+
   </div>
 
 </div>

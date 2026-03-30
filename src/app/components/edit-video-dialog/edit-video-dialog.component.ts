@@ -55,9 +55,7 @@ export class EditVideoDialogComponent {
   }
 
   setPuntuacion(valor: number) {
-    this.form.patchValue({ puntuacion: valor });
-    alert(valor);
-    
+    this.form.patchValue({ puntuacion: valor });    
   }
 
   guardar() {
