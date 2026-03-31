@@ -1,0 +1,8 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+  <input [(ngModel)]="user.username" placeholder="Usuario" class="form-control mb-2">
+  <input [(ngModel)]="user.password" type="password" placeholder="Password" class="form-control mb-2">
+
+  <button (click)="login()" class="btn btn-primary w-100">Entrar</button>
+</div>
