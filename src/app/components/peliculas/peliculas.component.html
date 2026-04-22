@@ -1,0 +1,77 @@
+<div class="container-fluid px-4 body">
+
+  <!-- BUSCADOR -->
+  <div class="buscador mb-3">
+    <input [formControl]="busquedaControl"
+           class="form-control" 
+           placeholder="Buscar película...">
+  </div>
+
+  <!-- FORMULARIO CREAR -->
+  <div class="card mb-4 p-3 shadow-sm">
+    <h5 class="card-title mb-3 text-light">Agregar nueva película</h5>
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input [(ngModel)]="nuevaPelicula.titulo" class="form-control" placeholder="Título">
+      </div>
+      <div class="col-md-3">
+        <input [(ngModel)]="nuevaPelicula.descripcion" class="form-control" placeholder="Descripción">
+      </div>
+      <div class="col-md-2">
+        <input [(ngModel)]="nuevaPelicula.anio" type="number" class="form-control" placeholder="Año">
+      </div>
+      <div class="col-md-2">
+        <input [(ngModel)]="nuevaPelicula.duracion" type="number" class="form-control" placeholder="Duración (min)">
+      </div>
+      <div class="col-md-2">
+        <!-- <label for="imagen">URL de la portada</label> -->
+        <input [(ngModel)]="nuevaPelicula.imagenUrl" class="form-control" placeholder="https://...">
+      </div>
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]" 
+        (click)="nuevaPelicula.puntuacion = star"
+        [class.active]="star <= (nuevaPelicula.puntuacion || 0)">
+        ★
+        </span>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" (click)="agregarPelicula()">
+          ➕ Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="container-movies">
+  <div class="movie-card" *ngFor="let p of peliculasFiltradas">
+
+  <div class="image-container">
+    <img [src]="p.imagenUrl" alt="{{p.titulo}}">
+  </div>
+
+  <div class="movie-body">
+    <h5>{{ p.titulo }}</h5>
+    <p class="descripcion">{{ p.descripcion }}</p>
+
+    <p class="info">
+      {{ p.anio }} • {{ p.duracion }} min
+    </p>
+
+    <div class="stars">
+      <span *ngFor="let star of [1,2,3,4,5]"
+        [class.active]="star <= (p?.puntuacion || 0)">★
+      </span>
+    </div>
+  </div>
+
+  <div class="movie-footer">
+    <button class="btn-edit">✏️ Editar</button>
+    <button class="btn-delete">🗑 Eliminar</button>
+  </div>
+
+  </div>
+
+  </div>
+
+</div>

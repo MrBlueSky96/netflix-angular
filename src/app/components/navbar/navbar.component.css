@@ -1,0 +1,31 @@
+.navbar {
+  background: red;
+  padding: 10px 20px;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column; /* 👈 centra vertical */
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}

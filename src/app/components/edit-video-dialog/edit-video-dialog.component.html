@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Editar {{tipo}}</h2>
+
+<form [formGroup]="form">
+
+  <mat-dialog-content>
+
+    <mat-form-field appearance="fill" class="w-100 mb-2">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo">
+      <mat-error *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
+        Título obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-2">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="descripcion">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-2">
+      <mat-label>Año</mat-label>
+      <input matInput type="number" formControlName="anio">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-2">
+      <mat-label>URL de la imagen</mat-label>
+      <input matInput formControlName="imagenUrl" placeholder="https://...">
+    </mat-form-field>
+
+    <img *ngIf="form.get('imagenUrl')?.value"
+     [src]="form.get('imagenUrl')?.value"
+     style="max-height: 120px; display:block; margin:auto;"
+    >
+
+    <div class="mb-3">
+      <label>Puntuación</label>
+
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]"
+          (click)="setPuntuacion(star)"
+          [class.active]="star <= puntuacion">
+          ★
+        </span>
+      </div>
+    </div>
+
+    
+
+    <!-- Película -->
+    <mat-form-field *ngIf="tipo === 'pelicula'" appearance="fill" class="w-100 mb-2">
+      <mat-label>Duración (min)</mat-label>
+      <input matInput type="number" formControlName="duracion">
+    </mat-form-field>
+
+    <!-- Serie -->
+    <mat-form-field *ngIf="tipo === 'serie'" appearance="fill" class="w-100 mb-2">
+      <mat-label>Temporadas</mat-label>
+      <input matInput type="number" formControlName="numeroTemporadas">
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" mat-dialog-close>Cancelar</button>
+    <button mat-flat-button color="primary" (click)="guardar()" [disabled]="form.invalid">
+      Guardar
+    </button>
+  </mat-dialog-actions>
+
+</form>
