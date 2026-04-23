@@ -18,7 +18,8 @@ export class LoginComponent {
   login() {
     this.authService.login(this.user).subscribe({
       next: (res) => {
-        localStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('username', res.username);
         this.router.navigate(['/']);
       },
       error: () => alert('Login incorrecto')

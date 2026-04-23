@@ -33,7 +33,10 @@
 
     <!-- NO logado -->
     <li class="nav-item" *ngIf="!authService.isLogged()">
-      <a class="nav-link" routerLink="/login">Login</a>
+      <button class="btn btn-sm btn-danger ms-2" routerLink="/login">Login</button>
+    </li>
+    <li class="nav-item" *ngIf="!authService.isLogged()">
+      <button class="btn btn-sm btn-danger ms-2" routerLink="/register">Registro</button>
     </li>
 
     <!-- LOGADO -->
