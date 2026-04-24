@@ -66,11 +66,11 @@
   </div>
 
   <div class="movie-footer">
-    <button class="btn-edit">✏️ Editar</button>
+    <button class="btn-edit" (click)="editarPelicula(p)">✏️ Editar</button>
     <button (click)="toggleFavorite(p.id)">
       {{ favorites.includes(p.id!) ? '❤️ Quitar' : '🤍 Añadir' }}
     </button>
-    <button class="btn-delete">🗑 Eliminar</button>
+    <button class="btn-delete" (click)="eliminarPelicula(p.id)">🗑 Eliminar</button>
   </div>
 
   </div>
