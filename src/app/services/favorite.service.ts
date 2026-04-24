@@ -17,5 +17,9 @@ export class FavoriteService {
   getFavorites() {
     return this.http.get<number[]>(this.apiUrl);
   }
+
+  removeFavorite(movieId: number) {
+    return this.http.delete(`${this.apiUrl}/${movieId}`);
+  }
   
 }

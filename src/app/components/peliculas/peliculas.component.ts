@@ -29,9 +29,7 @@ export class PeliculasComponent {
   }
 
   ngOnInit() {
-    this.favoriteService.getFavorites().subscribe(data => {
-      this.favorites = data;
-    });
+    this.loadFavorites();
   }
 
   get peliculasFiltradas() {
@@ -75,8 +73,44 @@ export class PeliculasComponent {
 
   addToFavorites(movieId: number) {
     this.favoriteService.addFavorite(movieId).subscribe({
-    next: () => alert('Añadido a favoritos'),
-    error: () => alert('Error (¿no estás logado?)')
+    next: () => {
+      this.favorites.push(movieId);
+      alert('Añadido a favoritos');
+    },
+    error: (err) => {
+      console.log('ERROR FAVORITES:', err);
+      alert('Error añadiendo favorito');
+    }
+    //error: () => alert('Error (¿no estás logado?)')
     });
   }
+
+  removeFromFavorites(movieId: number) {
+    this.favoriteService.removeFavorite(movieId).subscribe({
+    next: () => {
+      alert('Eliminado de favoritos');
+      this.cargarPeliculas();
+    },
+    error: (err) => {
+      console.log(err);
+      alert('Error eliminando favorito');
+    }
+    });
+  }
+
+  loadFavorites() {
+    this.favoriteService.getFavorites().subscribe((data) => {
+      this.favorites = data;
+    });
+  }
+
+  toggleFavorite(id: number) {
+    if (this.favorites.includes(id)) {
+      this.removeFromFavorites(id);
+    } else {
+      this.addToFavorites(id);
+    }
+  }
+
+
 }

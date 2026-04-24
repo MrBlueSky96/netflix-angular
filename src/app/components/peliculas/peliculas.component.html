@@ -67,8 +67,8 @@
 
   <div class="movie-footer">
     <button class="btn-edit">✏️ Editar</button>
-    <button (click)="addToFavorites(p.id)">
-      {{ favorites.includes(p.id) ? '⭐' : '⭐ Añadir a favoritos' }}
+    <button (click)="toggleFavorite(p.id)">
+      {{ favorites.includes(p.id!) ? '❤️ Quitar' : '🤍 Añadir' }}
     </button>
     <button class="btn-delete">🗑 Eliminar</button>
   </div>
