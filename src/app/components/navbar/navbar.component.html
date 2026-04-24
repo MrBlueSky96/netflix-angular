@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
   <div class="container-fluid">
 
     <a class="navbar-brand" routerLink="/">🎬 VideoApp</a>
@@ -33,7 +33,10 @@
 
     <!-- NO logado -->
     <li class="nav-item" *ngIf="!authService.isLogged()">
-      <a class="nav-link" routerLink="/login">Login</a>
+      <button class="btn btn-sm btn-danger ms-2" routerLink="/login">Login</button>
+    </li>
+    <li class="nav-item" *ngIf="!authService.isLogged()">
+      <button class="btn btn-sm btn-danger ms-2" routerLink="/register">Registro</button>
     </li>
 
     <!-- LOGADO -->
