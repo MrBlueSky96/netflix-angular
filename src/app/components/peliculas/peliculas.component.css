@@ -26,7 +26,7 @@ input::placeholder {
 /* GRID */
 .container-movies {
   display: grid !important;
-  grid-template-columns: repeat(4, 1fr); /* 4 por fila */
+  grid-template-columns: repeat(5, 1fr); /* 5 por fila */
   gap: 20px;
 }
 
@@ -74,14 +74,14 @@ input::placeholder {
 /* IMAGEN */
 .image-container {
   width: 100%;
-  height: 280px; /* tamaño consistente */
+  height: 100%; /* tamaño consistente */
   overflow: hidden;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* o contain si no quieres recorte */
+  object-fit: contain; /* o contain si no quieres recorte */
 }
 
 /* BODY */
@@ -137,6 +137,26 @@ input::placeholder {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.btn-favorite {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-favorite.active {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: white;
+}
+
+.btn-favorite:hover {
+  border-color: #e50914;
+  color: #e50914;
 }
 
 .btn-delete {

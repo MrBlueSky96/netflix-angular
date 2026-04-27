@@ -19,7 +19,11 @@ export class NavbarComponent {
 
   logout() {
     this.authService.logout();
-    window.location.href = '/login'; // o router.navigate
+    this.goLogin();
+  }
+
+  goLogin() {
+    window.location.href = '/login';
   }
 
 }
