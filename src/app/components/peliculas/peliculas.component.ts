@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -74,28 +74,15 @@ export class PeliculasComponent {
   addToFavorites(movieId: number) {
     this.favoriteService.addFavorite(movieId).subscribe({
     next: () => {
-      this.favorites.push(movieId);
-      alert('Añadido a favoritos');
-    },
-    error: (err) => {
-      console.log('ERROR FAVORITES:', err);
-      alert('Error añadiendo favorito');
-    }
-    //error: () => alert('Error (¿no estás logado?)')
-    });
+      this.favorites = [...this.favorites, movieId];
+    }});
   }
 
   removeFromFavorites(movieId: number) {
     this.favoriteService.removeFavorite(movieId).subscribe({
     next: () => {
-      alert('Eliminado de favoritos');
-      this.cargarPeliculas();
-    },
-    error: (err) => {
-      console.log(err);
-      alert('Error eliminando favorito');
-    }
-    });
+      this.favorites = this.favorites.filter(id => id !== movieId);
+    }});
   }
 
   loadFavorites() {
@@ -105,11 +92,9 @@ export class PeliculasComponent {
   }
 
   toggleFavorite(id: number) {
-    if (this.favorites.includes(id)) {
-      this.removeFromFavorites(id);
-    } else {
-      this.addToFavorites(id);
-    }
+    this.favorites.includes(id) ?
+    this.removeFromFavorites(id) :
+    this.addToFavorites(id);
   }
 
 
