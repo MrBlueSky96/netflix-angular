@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login.component',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -24,10 +25,6 @@ export class LoginComponent {
       },
       error: () => alert('Login incorrecto')
     });
-  }
-
-  canActivate(): boolean {
-    return !!localStorage.getItem('user');
   }
 
 }

@@ -9,7 +9,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'peliculas', component: PeliculasComponent, canActivate: [AuthGuard] },
-  { path: 'series', component: SeriesComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'series', component: SeriesComponent, canActivate: [AuthGuard] },
+  { path: 'register', loadComponent: () =>
+    import('./components/auth/register/register.component').then(m => m.RegisterComponent) },
+  { path: 'login', loadComponent: () =>
+    import('./components/auth/login/login.component').then(m => m.LoginComponent) },
 ];

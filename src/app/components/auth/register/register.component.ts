@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -19,8 +19,12 @@ export class RegisterComponent {
   register() {
     this.authService.register({ username: this.username, email: this.email, password: this.password })
       .subscribe({
-        next: () => this.router.navigate(['/login']),
+        next: () => this.goLogin(),
         error: (err) => alert(err.error)
       });
+  }
+
+  goLogin() {
+    window.location.href = '/login';
   }
 }

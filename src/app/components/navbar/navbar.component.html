@@ -31,24 +31,26 @@
       </ul>
     </div>
 
-    <!-- NO logado -->
-    <li class="nav-item" *ngIf="!authService.isLogged()">
-      <button class="btn btn-sm btn-danger ms-2" routerLink="/login">Login</button>
-    </li>
-    <li class="nav-item" *ngIf="!authService.isLogged()">
-      <button class="btn btn-sm btn-danger ms-2" routerLink="/register">Registro</button>
-    </li>
+    <ul class="navbar-nav mx-auto">
+        <!-- NO logado -->
+      <li class="nav-item" *ngIf="!authService.isLogged()">
+        <button class="btn btn-sm btn-primary ms-2" (click)="goLogin()">Login</button>
+      </li>
+      <li class="nav-item" *ngIf="!authService.isLogged()">
+        <button class="btn btn-sm btn-success ms-2" routerLink="/register">Registro</button>
+      </li>
 
-    <!-- LOGADO -->
-    <li class="nav-item d-flex align-items-center" *ngIf="authService.isLogged()">
-      <span class="nav-link">👤 {{ getUsername() }}</span>
-    </li>
+      <!-- LOGADO -->
+      <li class="nav-item d-flex align-items-center" *ngIf="authService.isLogged()">
+        <span class="nav-link">👤 {{ getUsername() }}</span>
+      </li>
   
-    <li class="nav-item" *ngIf="authService.isLogged()">
-      <button class="btn btn-sm btn-danger ms-2" (click)="logout()">
-        Logout
-      </button>
-    </li>
+      <li class="nav-item" *ngIf="authService.isLogged()">
+        <button class="btn btn-sm btn-danger ms-2" (click)="logout()">
+          Logout
+        </button>
+      </li>
+    </ul>
 
   </div>
 </nav>

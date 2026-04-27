@@ -1,0 +1,7 @@
+.home {
+    min-height: 100vh;
+}
+
+.bg-dark {
+  background: linear-gradient(to bottom, #141414, #000);
+}

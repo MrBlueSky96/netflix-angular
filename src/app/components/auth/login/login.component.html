@@ -1,8 +1,26 @@
-<div class="login-container">
-  <h2>Login</h2>
+<div class="auth-container d-flex align-items-center justify-content-center">
+  <div class="auth-card p-4">
 
-  <input [(ngModel)]="user.username" placeholder="Usuario" class="form-control mb-2">
-  <input [(ngModel)]="user.password" type="password" placeholder="Password" class="form-control mb-2">
+    <h2 class="text-center mb-4">🔐 Login</h2>
 
-  <button (click)="login()" class="btn btn-primary w-100">Entrar</button>
+    <input [(ngModel)]="user.username"
+           placeholder="Usuario"
+           class="form-control mb-3">
+
+    <input [(ngModel)]="user.password"
+           type="password"
+           placeholder="Password"
+           class="form-control mb-3">
+
+    <button (click)="login()"
+            class="btn btn-danger w-100 mb-2">
+      Entrar
+    </button>
+
+    <p class="text-center mt-3 mb-0">
+      ¿No tienes cuenta?
+      <a routerLink="/register" class="text-danger">Regístrate</a>
+    </p>
+
+  </div>
 </div>
