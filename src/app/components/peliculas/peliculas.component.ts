@@ -80,19 +80,24 @@ export class PeliculasComponent {
   }
 
   addToFavorites(movieId: number) {
+    const optimistic = [...this.favorites, movieId];
+    this.favoriteService.setFavorites(optimistic);
+
     this.favoriteService.addFavorite(movieId).subscribe({
     next: () => {
-      const updated = [...this.favorites, movieId];
-      this.favoriteService.setFavorites(updated);
+      this.favoriteService.loadFavorites();
     }});
   }
 
   removeFromFavorites(movieId: number) {
+    const optimistic = this.favorites.filter(id => id !== movieId);
+    this.favoriteService.setFavorites(optimistic);
+
     this.favoriteService.removeFavorite(movieId).subscribe({
-    next: () => {
-      const updated = this.favorites.filter(id => id !== movieId);
-      this.favoriteService.setFavorites(updated);
-    }});
+      next: () => {
+        this.favoriteService.loadFavorites();
+      }
+    });
   }
 
   loadFavorites() {
@@ -108,6 +113,5 @@ export class PeliculasComponent {
     this.removeFromFavorites(id) :
     this.addToFavorites(id);
   }
-
 
 }
