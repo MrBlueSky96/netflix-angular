@@ -7,6 +7,7 @@ import { PeliculaService } from '../../services/pelicula.service';
 import { Pelicula } from '../../models/pelicula';
 import { EditVideoDialogComponent } from '../edit-video-dialog/edit-video-dialog.component';
 import { FavoriteService } from '../../services/favorite.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-peliculas',
@@ -24,12 +25,19 @@ export class PeliculasComponent {
   favorites: number[] = [];
   nuevaPelicula: Pelicula = { id: 0, titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '', puntuacion: 1 };
 
+  private destroy$ = new Subject<void>();
+
   constructor(private peliculaService: PeliculaService, private favoriteService: FavoriteService,  private dialog: MatDialog, private cd: ChangeDetectorRef) {
     this.cargarPeliculas();
   }
 
   ngOnInit() {
     this.loadFavorites();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   get peliculasFiltradas() {
@@ -74,21 +82,25 @@ export class PeliculasComponent {
   addToFavorites(movieId: number) {
     this.favoriteService.addFavorite(movieId).subscribe({
     next: () => {
-      this.favorites = [...this.favorites, movieId];
+      const updated = [...this.favorites, movieId];
+      this.favoriteService.setFavorites(updated);
     }});
   }
 
   removeFromFavorites(movieId: number) {
     this.favoriteService.removeFavorite(movieId).subscribe({
     next: () => {
-      this.favorites = this.favorites.filter(id => id !== movieId);
+      const updated = this.favorites.filter(id => id !== movieId);
+      this.favoriteService.setFavorites(updated);
     }});
   }
 
   loadFavorites() {
-    this.favoriteService.getFavorites().subscribe((data) => {
-      this.favorites = data;
-    });
+    this.favoriteService.favorites$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(favs => this.favorites = favs);
+
+    this.favoriteService.loadFavorites();
   }
 
   toggleFavorite(id: number) {

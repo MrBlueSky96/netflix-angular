@@ -74,14 +74,14 @@ input::placeholder {
 /* IMAGEN */
 .image-container {
   width: 100%;
-  height: 100%; /* tamaño consistente */
+  height: 100%;
   overflow: hidden;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* o contain si no quieres recorte */
+  object-fit: contain;
 }
 
 /* BODY */
