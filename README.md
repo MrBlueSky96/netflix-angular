@@ -1,59 +1,181 @@
-# NetflixAngular
+# 🎬 VideoApp – Gestión de Películas y Series
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+Aplicación fullstack para gestionar películas y series con sistema de autenticación, favoritos por usuario y una interfaz moderna estilo Netflix.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Demo
+
+![Demo principal](./assets/demo.gif)
+
+
+---
+
+## ✨ Funcionalidades
+
+### 🔐 Autenticación
+
+* Login con JWT
+* Registro de usuarios
+* Persistencia de sesión
+* Protección de rutas
+
+### 🎥 Películas & 📺 Series
+
+* Listado dinámico
+* Buscador en tiempo real
+* CRUD completo (crear, editar, eliminar)
+* Sistema de puntuación ⭐
+
+### ❤️ Favoritos
+
+* Añadir / quitar favoritos por usuario
+* UI reactiva instantánea
+* Persistencia en backend
+
+### 🎨 UI/UX
+
+* Diseño oscuro estilo Netflix
+* Animaciones suaves
+* Responsive (mobile, tablet, desktop)
+
+---
+
+## 🧠 Tecnologías
+
+### Frontend
+
+* Angular 17+
+* RxJS
+* Angular Material
+* Bootstrap
+
+### Backend
+
+* Spring Boot
+* Spring Security
+* JWT (JSON Web Token)
+* JPA / Hibernate
+
+### Base de datos
+
+* MySQL / H2
+
+---
+
+## 📸 Capturas
+
+### 🔐 Autenticación
+
+![Autenticación](./assets/login.gif)
+
+### 🎥 Películas
+
+![Películas](./assets/peliculas.gif)
+
+### 📺 Series
+
+![Series](./assets/series.gif)
+
+### ❤️ Favoritos
+
+![Favoritos](./assets/favoritos.gif)
+
+---
+
+## ⚙️ Instalación
+
+### 1️⃣ Clonar repositorio
 
 ```bash
+git clone https://github.com/MrBlueSky96/netflix-angular.git
+cd netflix-angular
+```
+
+---
+
+### 2️⃣ Backend (Spring Boot)
+
+```bash
+git clone https://github.com/MrBlueSky96/crud-fullstack-java-angular-springboot.git
+cd crud-fullstack-java-angular-springboot
+mvn spring-boot:run
+```
+
+👉 Corre en: `http://localhost:8080`
+
+---
+
+### 3️⃣ Frontend (Angular)
+
+```bash
+cd netflix-angular
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+👉 App disponible en: `http://localhost:4200`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🔐 Configuración JWT
 
-```bash
-ng generate component component-name
-```
+El backend utiliza JWT para autenticación:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* Login → devuelve token
+* Angular guarda token en `localStorage`
+* Interceptor añade token a cada request
 
-```bash
-ng generate --help
-```
+---
 
-## Building
-
-To build the project run:
+## 📂 Estructura del Proyecto
 
 ```bash
-ng build
+frontend/
+  ├── components/
+  ├── services/
+  ├── models/
+  ├── interceptors/
+  ├── guards/
+
+backend/
+  ├── controller/
+  ├── service/
+  ├── repository/
+  ├── entity/
+  ├── security/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🧩 Arquitectura
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+* Angular consume API REST
+* Spring Boot gestiona lógica y seguridad
+* JWT protege endpoints
+* Favoritos asociados a usuario
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## 🧪 Próximas mejoras
 
-For end-to-end (e2e) testing, run:
+* 🎬 Filtrado por géneros
+* ⭐ Sistema de ratings persistente
+* 🔍 Búsqueda avanzada
+* 🎥 Lazy loading tipo Netflix
+* 🌐 Deploy (Docker + VPS)
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 👨‍💻 Autor
 
-## Additional Resources
+Desarrollado por **[Jose González Guilabert]**
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* GitHub: https://github.com/MrBlueSky96
+* LinkedIn: https://www.linkedin.com/in/jose-gonzález-guilabert-b035363a6/?skipRedirect=true
+
+---
+
+## 📄 Licencia
+
+MIT License
