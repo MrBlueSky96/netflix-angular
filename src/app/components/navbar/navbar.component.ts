@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
+
+  platformId = inject(PLATFORM_ID);
 
   constructor(public authService: AuthService) {}
 
@@ -24,6 +26,11 @@ export class NavbarComponent {
 
   goLogin() {
     window.location.href = '/login';
+  }
+
+  isLoggedSafe(): boolean {
+    if (!isPlatformBrowser(this.platformId)) return false;
+    return this.authService.isLogged();
   }
 
 }

@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
@@ -24,6 +24,7 @@ export class PeliculasComponent {
   peliculas: Pelicula[] = [];
   favorites: number[] = [];
   nuevaPelicula: Pelicula = { id: 0, titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '', puntuacion: 1 };
+  platformId = inject(PLATFORM_ID);
 
   private destroy$ = new Subject<void>();
 
@@ -32,7 +33,9 @@ export class PeliculasComponent {
   }
 
   ngOnInit() {
-    this.loadFavorites();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadFavorites();
+    }
   }
 
   ngOnDestroy() {

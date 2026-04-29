@@ -31,10 +31,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem('token');
-    }
-    return null;
+    return localStorage.getItem('token');
   }
 
   isLogged(): boolean {
