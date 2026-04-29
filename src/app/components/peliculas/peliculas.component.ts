@@ -28,12 +28,11 @@ export class PeliculasComponent {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private peliculaService: PeliculaService, private favoriteService: FavoriteService,  private dialog: MatDialog, private cd: ChangeDetectorRef) {
-    this.cargarPeliculas();
-  }
+  constructor(private peliculaService: PeliculaService, private favoriteService: FavoriteService,  private dialog: MatDialog, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
+      this.cargarPeliculas();
       this.loadFavorites();
     }
   }
@@ -106,7 +105,11 @@ export class PeliculasComponent {
   loadFavorites() {
     this.favoriteService.favorites$
     .pipe(takeUntil(this.destroy$))
-    .subscribe(favs => this.favorites = favs);
+    .subscribe(
+      favs => {
+        this.favorites = favs
+        this.cd.detectChanges();
+      });
 
     this.favoriteService.loadFavorites();
   }
