@@ -24,7 +24,6 @@
         <input [(ngModel)]="nuevaPelicula.duracion" type="number" class="form-control" placeholder="Duración (min)">
       </div>
       <div class="col-md-2">
-        <!-- <label for="imagen">URL de la portada</label> -->
         <input [(ngModel)]="nuevaPelicula.imagenUrl" class="form-control" placeholder="https://...">
       </div>
       <div class="stars">
@@ -68,7 +67,7 @@
   <div class="movie-footer">
     <button class="btn-edit" (click)="editarPelicula(p)">✏️ Editar</button>
     <button class="btn-favorite" [class.active]="favorites.includes(p.id!)"
-      (click)="toggleFavorite(p.id)">
+      (click)="toggleFavorite(p.id!)">
       {{ favorites.includes(p.id!) ? '❤️ Quitar' : '🤍 Añadir' }}
     </button>
     <button class="btn-delete" (click)="eliminarPelicula(p.id)">🗑 Eliminar</button>

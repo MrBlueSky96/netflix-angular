@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, computed, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
@@ -7,6 +7,7 @@ import { PeliculaService } from '../../services/pelicula.service';
 import { Pelicula } from '../../models/pelicula';
 import { EditVideoDialogComponent } from '../edit-video-dialog/edit-video-dialog.component';
 import { FavoriteService } from '../../services/favorite.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-peliculas',
@@ -23,13 +24,22 @@ export class PeliculasComponent {
   peliculas: Pelicula[] = [];
   favorites: number[] = [];
   nuevaPelicula: Pelicula = { id: 0, titulo: '', descripcion: '', anio: 2026, duracion: 0, imagenUrl: '', puntuacion: 1 };
+  platformId = inject(PLATFORM_ID);
 
-  constructor(private peliculaService: PeliculaService, private favoriteService: FavoriteService,  private dialog: MatDialog, private cd: ChangeDetectorRef) {
-    this.cargarPeliculas();
-  }
+  private destroy$ = new Subject<void>();
+
+  constructor(private peliculaService: PeliculaService, private favoriteService: FavoriteService,  private dialog: MatDialog, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.loadFavorites();
+    if (isPlatformBrowser(this.platformId)) {
+      this.cargarPeliculas();
+      this.loadFavorites();
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   get peliculasFiltradas() {
@@ -72,23 +82,36 @@ export class PeliculasComponent {
   }
 
   addToFavorites(movieId: number) {
+    const optimistic = [...this.favorites, movieId];
+    this.favoriteService.setFavorites(optimistic);
+
     this.favoriteService.addFavorite(movieId).subscribe({
     next: () => {
-      this.favorites = [...this.favorites, movieId];
+      this.favoriteService.loadFavorites();
     }});
   }
 
   removeFromFavorites(movieId: number) {
+    const optimistic = this.favorites.filter(id => id !== movieId);
+    this.favoriteService.setFavorites(optimistic);
+
     this.favoriteService.removeFavorite(movieId).subscribe({
-    next: () => {
-      this.favorites = this.favorites.filter(id => id !== movieId);
-    }});
+      next: () => {
+        this.favoriteService.loadFavorites();
+      }
+    });
   }
 
   loadFavorites() {
-    this.favoriteService.getFavorites().subscribe((data) => {
-      this.favorites = data;
-    });
+    this.favoriteService.favorites$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(
+      favs => {
+        this.favorites = favs
+        this.cd.detectChanges();
+      });
+
+    this.favoriteService.loadFavorites();
   }
 
   toggleFavorite(id: number) {
@@ -96,6 +119,5 @@ export class PeliculasComponent {
     this.removeFromFavorites(id) :
     this.addToFavorites(id);
   }
-
 
 }

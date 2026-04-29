@@ -1,0 +1,195 @@
+.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.body {
+  background-color: #141414;
+  color: #fff;
+}
+
+.buscador {
+  padding-top: 15px;
+}
+
+input,
+.form-control {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* GRID */
+.container-movies {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr); /* 5 por fila */
+  gap: 20px;
+}
+
+/* CARD */
+.card,
+.movie-card {
+  background: #1f1f1f;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: all 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+input,
+.form-control {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+.movie-card {
+  width: 100%;
+  background: #1f1f1f;
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.movie-card:hover {
+  transform: scale(1.03);
+}
+
+/* IMAGEN */
+.image-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* BODY */
+.movie-body {
+  padding: 10px;
+}
+
+.movie-body h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* DESCRIPCIÓN */
+.descripcion {
+  font-size: 13px;
+  color: #bbb;
+  margin: 5px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* INFO */
+.info {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ESTRELLAS */
+.stars span {
+  color: #555;
+  font-size: 16px;
+}
+
+.stars span.active {
+  color: gold;
+}
+
+/* FOOTER */
+.movie-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* BOTONES */
+.btn-edit {
+  background: #f1c40f;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-favorite {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-favorite.active {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: white;
+}
+
+.btn-favorite:hover {
+  border-color: #e50914;
+  color: #e50914;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #ffd43b;
+}
+
+.btn-delete:hover {
+  background: #ff5c5c;
+}
+
+@media (max-width: 1200px) {
+  .container-movies {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container-movies {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .container-movies {
+    grid-template-columns: 1fr;
+  }
+}

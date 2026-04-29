@@ -1,40 +1,92 @@
-<div class="container mt-4">
+<div class="container-fluid px-4 body">
 
-  <h2 class="mb-4">Series</h2>
+  <!-- BUSCADOR -->
+  <div class="buscador mb-3">
+    <input [formControl]="busquedaControl"
+           class="form-control"
+           placeholder="Buscar serie...">
+  </div>
 
-  <form (ngSubmit)="agregarSerie()" class="card p-3 mb-4 shadow-sm">
+  <!-- FORMULARIO -->
+  <div class="card mb-4 p-3 shadow-sm">
+    <h5 class="card-title mb-3 text-light">Agregar nueva serie</h5>
 
     <div class="row g-2">
       <div class="col-md-3">
-        <input [(ngModel)]="nuevaSerie.titulo" name="titulo" class="form-control" placeholder="Título" required>
+        <input [(ngModel)]="nuevaSerie.titulo" class="form-control" placeholder="Título">
       </div>
 
       <div class="col-md-3">
-        <input [(ngModel)]="nuevaSerie.descripcion" name="descripcion" class="form-control" placeholder="Descripción" required>
+        <input [(ngModel)]="nuevaSerie.descripcion" class="form-control" placeholder="Descripción">
       </div>
 
       <div class="col-md-2">
-        <input [(ngModel)]="nuevaSerie.anio" name="anio" type="number" class="form-control" placeholder="Año" required>
+        <input [(ngModel)]="nuevaSerie.anio" type="number" class="form-control" placeholder="Año">
       </div>
 
       <div class="col-md-2">
-        <input [(ngModel)]="nuevaSerie.numeroTemporadas" name="numeroTemporadas" type="number" class="form-control" placeholder="Temporadas" required>
+        <input [(ngModel)]="nuevaSerie.numeroTemporadas" type="number" class="form-control" placeholder="Temporadas">
       </div>
 
       <div class="col-md-2">
-        <button class="btn btn-primary w-100" type="submit">Añadir</button>
+        <input [(ngModel)]="nuevaSerie.imagenUrl" class="form-control" placeholder="https://...">
+      </div>
+
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]"
+          (click)="nuevaSerie.puntuacion = star"
+          [class.active]="star <= (nuevaSerie.puntuacion || 0)">
+          ★
+        </span>
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" (click)="agregarSerie()">
+          ➕ Agregar
+        </button>
       </div>
     </div>
+  </div>
 
-  </form>
+  <!-- GRID -->
+  <div class="container-movies">
 
-  <ul class="list-group">
-    <li *ngFor="let s of series" class="list-group-item d-flex justify-content-between align-items-center">
-      <span>
-        <strong>{{s.titulo}}</strong> ({{s.anio}}) - {{s.numeroTemporadas}} temporadas
-      </span>
-      <button class="btn btn-danger btn-sm" (click)="eliminarSerie(s.id)">Eliminar</button>
-    </li>
-  </ul>
+    <div class="movie-card" *ngFor="let s of seriesFiltradas">
 
+      <div class="image-container">
+        <img [src]="s.imagenUrl">
+      </div>
+
+      <div class="movie-body">
+        <h5>{{ s.titulo }}</h5>
+        <p class="descripcion">{{ s.descripcion }}</p>
+
+        <p class="info">
+          {{ s.anio }} • {{ s.numeroTemporadas }} temporadas
+        </p>
+
+        <div class="stars">
+          <span *ngFor="let star of [1,2,3,4,5]"
+            [class.active]="star <= (s?.puntuacion || 0)">
+            ★
+          </span>
+        </div>
+      </div>
+
+      <div class="movie-footer">
+        <button class="btn-edit" (click)="editarSerie(s)">✏️ Editar</button>
+
+        <button class="btn-favorite"
+          [class.active]="favorites.includes(s.id!)"
+          (click)="toggleFavorite(s.id!)">
+
+          {{ favorites.includes(s.id!) ? '❤️ Quitar' : '🤍 Añadir' }}
+        </button>
+
+        <button class="btn-delete" (click)="eliminarSerie(s.id)">🗑 Eliminar</button>
+      </div>
+
+    </div>
+
+  </div>
 </div>
